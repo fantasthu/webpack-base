@@ -1,0 +1,50 @@
+<div class="info">
+  <div>
+    <div class="title">个人信息</div>
+    <!--<mt-field label="姓名"></mt-field>-->
+    <!--<mt-field label="身份证号"></mt-field>-->
+    <div class="field-item">
+      <span class="label">姓名</span>
+      <input class="input" type="text" v-model="name" />
+    </div>
+    <div class="field-item">
+      <span class="label">身份证号</span>
+      <input class="input" type="text" v-model="sfzzmnum" />
+    </div>
+    <div class="field-item">
+      <span class="label">家庭成员人数</span>
+      <v-select class="input" :options="familyNum" v-model="jtcynum"></v-select>
+    </div>
+    <div class="field-item">
+      <span class="label">婚姻状况</span>
+      <v-select class="input" :options="maritalStatus" v-model="hyzk"></v-select>
+    </div>
+  </div>
+  <div>
+    <div class="title">职业及财务状况</div>
+    <div class="field-item">
+      <span class="label">选择职业</span>
+      <v-select class="input" :options="professionList" v-model="profession"></v-select>
+    </div>
+    <div class="field-item">
+      <span class="label">选择行业</span>
+      <v-select class="input" :options="industryList" v-model="industry"></v-select>
+    </div>
+    <div class="field-item">
+      <span class="label">总资产净值</span>
+      <v-select class="input" :options="assetsList" v-model="assets"></v-select>
+    </div>
+    <div class="field-item">
+      <span class="label">投资目标</span>
+      <v-select class="input" :options="objectivesList" v-model="tzmb"></v-select>
+    </div>
+    <div class="field-item">
+      <span class="label">投资经验</span>
+      <v-select class="input" :options="expList" v-model="tzjy"></v-select>
+    </div>
+  </div>
+  <mt-button :disabled="loading" type="danger" @click="nextStep">
+    <span>下一步</span>
+    <mt-spinner v-show="loading" slot="icon" type="snake"></mt-spinner>
+  </mt-button>
+</div>

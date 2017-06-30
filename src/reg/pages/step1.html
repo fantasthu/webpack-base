@@ -1,0 +1,23 @@
+<div class="register">
+	<div class="reg-content">
+		<img src="../img/logo.png" class="logo" />
+		<mt-field label="请输入手机号" type="tel" v-model="phoneno"></mt-field>
+		<p v-show="!checkPhoneNo" class="invalidated">请输入正确的手机号</p>
+		<div class="reg" v-show="isreg">
+			<mt-field label="手机验证码" v-model="verifyCode">
+				<span v-show="verifyEnable" @click="getVerifyCode">获取验证码</span>
+				<span v-show="!verifyEnable">{{verifyTimer}}</span>
+			</mt-field>
+			<p v-show="!checkVerifyCode" class="invalidated">请输入正确的验证码</p>
+			<mt-field label="设置登录密码" type="password" v-model="password"></mt-field>
+			<p v-show="!checkPassword" class="invalidated">密码必须为6-15位，并且同时包含数字和字母</p>
+		</div>
+		<div class="login" v-show="islogin">
+			<mt-field label="请输入登录密码" type="password" v-model="password"></mt-field>
+		</div>
+		<mt-button :disabled="loading" type="danger" @click="nextStep" icon="loading">
+			<span>下一步</span>
+			<mt-spinner v-show="loading" slot="icon" type="snake"></mt-spinner>
+		</mt-button>
+	</div>
+</div>

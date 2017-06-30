@@ -1,0 +1,283 @@
+/*使用了px2rem-plus插件*/
+html,body{
+  width: 100%;
+  height: 100%;
+  font-family: Helvetica,"微软雅黑";
+}
+
+.main{
+  width: 10rem;
+  height: 100%;
+  margin: 0 auto;
+  background-image: url(./img/bg.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.register_success{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.suc_content{
+  width: 9.2rem;
+  height: 13.67rem;
+  background: rgb(255, 255, 255);
+  border-radius: .11rem;
+  & .suc_sign{
+    width: 2.13rem;
+    height: 2.13rem;
+    background-image: url(./img/chenggong.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    margin-bottom: .47rem;
+    margin-top: 1.12rem;
+  }
+  & .suc_tip{
+    width: 2.13rem;
+    font-size: .48rem;
+    text-align: center;
+    line-height: .48rem;
+    margin: 0 auto;
+    margin-bottom: .37rem;
+  }
+  & .suc_down_tip{
+    margin: 0 auto;
+    width: 4.5rem;
+    font-size: .37rem;
+    line-height: .37rem;
+    color: rgb(102, 102, 102);
+    text-align: center;
+    margin-bottom: 1.11rem;
+  }
+  & .suc_btn{
+    display: block;
+    margin:  0 auto;
+    width: 7.87rem;
+    height: 1.2rem;
+    border-radius: .11rem;
+    line-height: 1.2rem;
+    text-align: center;
+    font-size: .45rem;
+    color: #fff;
+    background: rgb(202, 41, 41);
+    margin-bottom: .77rem;
+    text-decoration:none;
+  }
+  & .down_qr_tip{
+    margin: 0 auto;
+    width:4rem;
+    height: .36rem;
+    background-image: url(./img/erweimatip.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: .52rem;
+    &.jcb {
+      width: 5rem;
+      background-image: url(./img/qrcode_title.png);
+    }
+  }
+  & .down_qr_code{
+    display: block;
+    margin: 0 auto;
+    width: 3.73rem;
+    height: 3.73rem;
+  }
+}
+
+.register{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reg_content{
+  width: 9.2rem;
+  height: 13.67rem;
+  background: rgb(255, 255, 255);
+  border-radius: .11rem;
+  & .logo{
+    display: block;
+    // width: 3.81rem;
+    height: 1.23rem;
+    margin: 0 auto;
+    margin-bottom: 1.07rem;
+    margin-top: 1.4rem;
+  }
+  & .moble_reg_lab{
+    display: block;
+    width: 7.87rem;
+    margin: 0 auto;
+    font-size: .35rem;
+    color: rgb(102, 102, 102);
+    line-height: .93rem;
+  }
+  & .moble_reg_inp{
+    display: block;
+    width: 7.87rem;
+    height: 1.2rem;
+    margin: 0 auto;
+    background-color: rgb(236, 239, 243);
+    outline: none;
+    border: none;
+    color: #000;
+    font-size: .43rem;
+    padding-left: .41rem;
+    border-radius: .11rem;
+  }
+  & .moble_yzm_lab{
+    display: block;
+    width: 7.87rem;
+    margin: 0 auto;
+    font-size: .35rem;
+    color: rgb(102, 102, 102);
+    line-height: .93rem;
+  }
+  & .moble_yzm{
+    position: relative;
+    display: block;
+    width: 7.87rem;
+    margin: 0 auto;
+    & .moble_yzm_inp{
+      display: block;
+      width: 7.87rem;
+      height: 1.2rem;
+      background-color: rgb(236, 239, 243);
+      outline: none;
+      border: none;
+      color: #000;
+      font-size: .43rem;
+      padding-left: .41rem;
+      border-radius: .11rem;
+    }
+    & .moble_yzm_btn{
+      display: block;
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      top: 0.335rem;
+      width: 2.49rem;
+      height: .53rem;
+      line-height: .53rem;
+      text-align: center;
+      font-size: .35rem;
+      color: rgb(202, 41, 41);
+      border-left: 1px solid rgb(178, 178, 178);
+    }
+  }
+  & .moble_pwd_lab{
+    display: block;
+    width: 7.87rem;
+    margin: 0 auto;
+    font-size: .35rem;
+    color: rgb(102, 102, 102);
+    line-height: .93rem;
+  }
+  & .moble_pwd_inp{
+    display: block;
+    width: 7.87rem;
+    height: 1.2rem;
+    margin: 0 auto;
+    background-color: rgb(236, 239, 243);
+    outline: none;
+    border: none;
+    color: #000;
+    font-size: .43rem;
+    padding-left: .41rem;
+    border-radius: .11rem;
+    // margin-bottom: 1.33rem;
+  }
+  & .next_btn{
+    margin: 0 auto;
+    width: 7.87rem;
+    height: 1.2rem;
+    text-align: center;
+    line-height: 1.2rem;
+    background: rgb(202, 41, 41);
+    color: #fff;
+    font-size: .45rem;
+    border-radius: .11rem;
+  }
+}
+.register_failed{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fail_content{
+  width: 9.2rem;
+  height: 13.67rem;
+  background: rgb(255, 255, 255);
+  border-radius: .11rem;
+  & .fail_sign{
+    width: 2.13rem;
+    height: 2.13rem;
+    background-image: url(./img/shibai.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    margin-bottom: .44rem;
+    margin-top: 2.8rem;
+  }
+  & .fail_tip{
+    margin: 0 auto;
+    width: 4.5rem;
+    font-size: .48rem;
+    line-height: .48rem;
+    text-align: center;
+    margin-bottom: .36rem;
+  }
+  & .fail_down_tip{
+    margin: 0 auto;
+    width: 4.5rem;
+    font-size: .37rem;
+    line-height: .37rem;
+    text-align: center;
+    color: rgb(153, 153, 153);
+    margin-bottom: 5.79rem;
+  }
+  & .fail_logo{
+    display: block;
+    margin: 0 auto;
+    // width: 2.08rem;
+    height: .67rem;
+  }
+}
+.moble_yzm_err{
+  color: red;
+}
+.moble_reg_err{
+  color: red;
+  display: block;
+  width: 7.87rem;
+  margin: 0 auto;
+}
+.moble_pwd_err{
+  color: red;
+  display: block;
+  width: 7.87rem;
+  margin: 0 auto;
+  // margin-bottom: 1.33rem;
+}
+.kong{
+  width: 100%;
+  height: 1.33rem;
+  margin: 0 auto;
+}
+@media screen and (max-height:480px) {
+  .main{
+    width: 10rem;
+    height: 600px;
+    margin: 0 auto;
+    background-image: url(./img/bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+}
