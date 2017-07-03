@@ -1,6 +1,8 @@
 /**
  * 数据接口
  */
+import 'babel-polyfill';
+
 import {
   get,
   post,
@@ -18,7 +20,7 @@ const userHost = 'https://user.intechtrading.com';
  */
 export function getProxyInfo(payload) {
   return get(`${payHost}/Proxy/info.ashx`, {
-    ...payload,
+
     packtype: 784,
   });
 }
@@ -29,7 +31,6 @@ export function getProxyInfo(payload) {
 export function getVerifyCode(payload) {
   // https://user.intechtrading.com/api/getverifycode.ashx
   const params = {
-    ...payload,
     mobile: base64.encode(payload.mobile),
     packtype: 784,
     smsType: 21,
@@ -47,7 +48,6 @@ export function getVerifyCode(payload) {
  */
 export function register(payload) {
   const params = {
-    ...payload,
     mobile: base64.encode(payload.mobile),
     packtype: 784,
     version: '1.0.0',
@@ -70,7 +70,6 @@ export function register(payload) {
  */
 export function setOpenAcountInfo(payload) {
   const params = {
-    ...payload,
     action: 'basic',
     packtype: 784,
   };
@@ -86,7 +85,6 @@ export function setOpenAcountInfo(payload) {
  */
 export function uploadSign(payload) {
   const params = {
-    ...payload,
     action: 'setsigned',
     packtype: 784,
   };
@@ -109,7 +107,6 @@ export function login(arg) {
  */
 export function getUserAccountStatu(payload) {
   const params = {
-    ...payload,
     action: 'getUserAccountStatu',
     packtype: 784,
     version:'1.0.0',

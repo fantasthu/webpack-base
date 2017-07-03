@@ -8,7 +8,10 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var px2rem = require('postcss-px2rem');
 var getEntry = require('./getEntry');
-var extractSASS = new ExtractTextPlugin('[name].css');
+var moment = require('moment');
+var CryptoJS = require('crypto-js');
+const versionHash = CryptoJS.MD5(moment().format('x')).toString().substr(0, 4) + moment().format('YYMMDDHH');
+var extractSASS = new ExtractTextPlugin(`${versionHash}/css/[name].[contenthash:8].css`);
 
 //  配置入口文件
 
@@ -24,7 +27,7 @@ plugins.push(new webpack.HotModuleReplacementPlugin());
 //  提取公共文件
 plugins.push(new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
-    filename: 'vendor.js'
+    filename: `${versionHash}/js/vendor.[hash:8].js`
 }));
 // 混淆
 plugins.push(new webpack.optimize.UglifyJsPlugin({
@@ -95,7 +98,7 @@ var config = {
                 })
             },
             {
-                test:/\.scss$/i,
+                test: /\.scss$/i,
                 // 线上环境这么使用
                 use: extractSASS.extract({
                     fallback: 'style-loader',
@@ -123,7 +126,7 @@ var config = {
     plugins: plugins,
     resolve: {
         alias: {
-            
+
         },
         extensions: ['.js', '.css', '.scss', '.pug', '.png', '.jpg']
     },

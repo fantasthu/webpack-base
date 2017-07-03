@@ -9,9 +9,9 @@ var getEntry = require('./getEntry');
 var extractSASS = new ExtractTextPlugin('[name].css');
 
 //  配置入口文件
-var entrys = getEntry('./src/*/*.js');
+var entrys = getEntry('./src/**/*.js');
 //  处理html
-var pages = getEntry('./src/*/*.pug');
+var pages = getEntry('./src/**/*.pug');
 //  添加插件
 var plugins = [];
 
