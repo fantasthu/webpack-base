@@ -84,7 +84,13 @@ var config = {
                 exclude: /(node_modules)/
             }, {
                 test: /\.js$/,
-                use: ['babel-loader'],
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env'],
+                        plugins: [require('babel-plugin-transform-object-rest-spread'), 'transform-runtime']
+                    }
+                }],
                 exclude: /(node_modules)/
             }, {
                 test: /\.css$/i,

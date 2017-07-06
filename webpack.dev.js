@@ -73,11 +73,20 @@ var config = {
     module: {
         rules: [{
                 test: /\.html$/,
-                use: ['html-withimg-loader','raw-loader'], // 把html解析成string,依赖file-loader
+                use: ['html-withimg-loader', 'raw-loader'], // 把html解析成string,依赖file-loader
                 exclude: /(node_modules)/
             }, {
                 test: /\.js$/,
-                use: ['babel-loader'],
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env'],
+                        plugins: [require('babel-plugin-transform-object-rest-spread'), 'transform-runtime']
+                        // babel-present-env  修补使用一些es的新语法
+                        // transform-runtime 避免添加每个文件依赖
+                        // babel-plugin-transform-object-rest-spread 使用...等新的es语法
+                    }
+                }],
                 exclude: /(node_modules)/
             }, {
                 test: /\.css$/i,
@@ -122,7 +131,7 @@ var config = {
     plugins: plugins,
     resolve: {
         alias: {
-            'vue':'vue/dist/vue.js'
+            'vue': 'vue/dist/vue.js'
         },
         extensions: ['.js', '.css', '.scss', '.pug', '.png', '.jpg']
     },

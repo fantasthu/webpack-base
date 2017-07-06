@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import tool from './service/Tools.js';
@@ -19,6 +18,17 @@ require('./style.scss');
 
 Vue.use(VueRouter);
 
+//==========test es6===============
+import outFile from './OutFile';
+ const outfile = new outFile();
+console.log('A',outfile.setName(121),outfile.getName());
+new Promise((resolve, reject) => {
+  console.log('resolve', resolve);
+});
+Promise.all([1, 2, 3]);
+var arr = [...[1, 2], 3];
+console.log('arr', arr);
+//==========test===============
 // 开启debug模式
 Vue.config.debug = true;
 
@@ -39,7 +49,9 @@ const router = new VueRouter({
     name: 'result',
     path: '/result',
     component: result,
-    mate: { keepAlive: true },
+    mate: {
+      keepAlive: true
+    },
   }, {
     name: 'signature',
     path: '/signature',
