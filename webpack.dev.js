@@ -7,7 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var px2rem = require('postcss-px2rem');
 var getEntry = require('./getEntry');
 var extractSASS = new ExtractTextPlugin('[name].css');
-
+var process = require('process');
 //  配置入口文件
 var entrys = getEntry('./src/**/*.js');
 //  处理html
@@ -18,6 +18,7 @@ var plugins = [];
 //  切割css文件
 plugins.push(extractSASS);
 plugins.push(new webpack.HotModuleReplacementPlugin());
+console.log('env', process.env.NODE_ENV);
 
 
 // 第三方插件
@@ -135,6 +136,8 @@ var config = {
         },
         extensions: ['.js', '.css', '.scss', '.pug', '.png', '.jpg']
     },
-    externals: {}
+    externals: {
+        $: 'jQuery'
+    }
 };
 module.exports = config;

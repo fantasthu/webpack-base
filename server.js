@@ -8,6 +8,7 @@ console.log('port:', 10086);
 
 for (var item in config.entry) {
   config.entry[item].unshift("webpack-dev-server/client?http://localhost:" + port + "/", 'webpack/hot/dev-server');
+  config.entry[item].unshift("babel-polyfill");
 }
 console.log('config', config.entry);
 
