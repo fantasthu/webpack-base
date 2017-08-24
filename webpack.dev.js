@@ -9,7 +9,7 @@ var getEntry = require('./getEntry');
 var extractSASS = new ExtractTextPlugin('[name].css');
 var process = require('process');
 //  配置入口文件
-var entrys = getEntry('./src/**/*.js');
+var entrys = getEntry('./src/app/*.js');
 //  处理html
 var pages = getEntry('./src/**/*.pug');
 //  添加插件
@@ -18,42 +18,48 @@ var plugins = [];
 //  切割css文件
 plugins.push(extractSASS);
 plugins.push(new webpack.HotModuleReplacementPlugin());
-console.log('env', process.env.NODE_ENV);
-
 
 // 第三方插件
-entrys['vendor'] = [
-
-];
+entrys['vendor'] = [];
 
 //  提取公共文件
-plugins.push(new webpack.optimize.CommonsChunkPlugin({
+plugins.push(
+  new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
     filename: 'vendor.js'
-}));
-
-
-console.log('entrys', entrys);
-
+  })
+);
+plugins.push(
+  new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: '"development"'
+    }
+  })
+);
+plugins.push(
+  new webpack.ProvidePlugin({
+    $: 'jQuery' //此处这么定义,就可以直接全局使用了 
+  })
+);
 for (var chunkname in pages) {
-    var conf = {
-        filename: chunkname + '.html',
-        template: pages[chunkname],
-        inject: true,
-        cache: false,
-        minify: {
-            removeComments: true,
-            collapseWhitespace: false
-        },
-        chunks: ['vendor', chunkname],
-        hash: true,
-    }
-    var titleC = {};
-    var title = titleC[chunkname];
-    if (title) {
-        conf.title = title;
-    }
-    plugins.push(new HtmlWebpackPlugin(conf));
+  var conf = {
+    filename: chunkname + '.html',
+    template: pages[chunkname],
+    inject: true,
+    cache: false,
+    minify: {
+      removeComments: true,
+      collapseWhitespace: false
+    },
+    chunks: ['vendor', chunkname],
+    hash: true
+  };
+  var titleC = {};
+  var title = titleC[chunkname];
+  if (title) {
+    conf.title = title;
+  }
+  plugins.push(new HtmlWebpackPlugin(conf));
 }
 
 plugins.push(new webpack.HotModuleReplacementPlugin());
@@ -65,79 +71,93 @@ plugins.push(new webpack.HotModuleReplacementPlugin());
 // }))
 //  配置webpack
 var config = {
-    entry: entrys,
-    output: {
-        path: path.resolve(containerPath, './src/'),
-        filename: '[name].js'
-    },
-    devtool: 'source-map',
-    module: {
-        rules: [{
-                test: /\.html$/,
-                use: ['html-withimg-loader', 'raw-loader'], // 把html解析成string,依赖file-loader
-                exclude: /(node_modules)/
-            }, {
-                test: /\.js$/,
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env'],
-                        plugins: [require('babel-plugin-transform-object-rest-spread'), 'transform-runtime']
-                        // babel-present-env  修补使用一些es的新语法
-                        // transform-runtime 避免添加每个文件依赖
-                        // babel-plugin-transform-object-rest-spread 使用...等新的es语法
-                    }
-                }],
-                exclude: /(node_modules)/
-            }, {
-                test: /\.css$/i,
-                use: [{
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader?module',
-                    },
-                    {
-                        loader: 'postcss-loader',
-                    }
-                ]
-            },
-            {
-                test: /\.scss$/i,
-                use: [{
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader',
-                    }, {
-                        loader: 'sass-loader'
-                    }, {
-                        loader: 'postcss-loader'
-                    }
-                ]
-            },
-            {
-                test: /.pug$/,
-                use: ['pug-loader'],
-                exclude: /(node_modules)/
-            }, {
-                test: /\.(png|jpg|gif|jpge)$/,
-                use: ['url-loader?limit=8192&name=img/[name].[ext]']
-            }, {
-                test: /\.(woff|woff2|svg|eot|ttf|otf)$/,
-                use: ['file-loader?limit=8192&name=fonts/[name].[ext]']
+  entry: entrys,
+  output: {
+    path: path.resolve(containerPath, './src/'),
+    filename: '[name].js'
+  },
+  devtool: 'source-map',
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        use: ['html-withimg-loader', 'raw-loader'], // 把html解析成string,依赖file-loader
+        exclude: /(node_modules)/
+      },
+      {
+        test: /\.js$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env'],
+              plugins: [
+                require('babel-plugin-transform-object-rest-spread'),
+                'transform-runtime'
+              ]
+              // babel-present-env  修补使用一些es的新语法
+              // transform-runtime 避免添加每个文件依赖
+              // babel-plugin-transform-object-rest-spread 使用...等新的es语法
             }
+          }
+        ],
+        exclude: /(node_modules)/
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader?module'
+          },
+          {
+            loader: 'postcss-loader'
+          }
         ]
+      },
+      {
+        test: /\.scss$/i,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          },
+          {
+            loader: 'postcss-loader'
+          }
+        ]
+      },
+      {
+        test: /.pug$/,
+        use: ['pug-loader'],
+        exclude: /(node_modules)/
+      },
+      {
+        test: /\.(png|jpg|gif|jpge)$/,
+        use: ['url-loader?limit=8192&name=img/[name].[ext]']
+      },
+      {
+        test: /\.(woff|woff2|svg|eot|ttf|otf)$/,
+        use: ['file-loader?limit=8192&name=fonts/[name].[ext]']
+      }
+    ]
+  },
+  plugins: plugins,
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.js'
     },
-    plugins: plugins,
-    resolve: {
-        alias: {
-            'vue': 'vue/dist/vue.js'
-        },
-        extensions: ['.js', '.css', '.scss', '.pug', '.png', '.jpg']
-    },
-    externals: {
-        $: 'jQuery'
-    }
+    extensions: ['.js', '.css', '.scss', '.pug', '.png', '.jpg']
+  },
+  externals: {
+    $: 'jQuery' // 这里是定义了$指向全局的jQuery,文件中可以import $ from '$';
+  }
 };
 module.exports = config;

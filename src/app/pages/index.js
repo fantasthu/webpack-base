@@ -15,12 +15,11 @@ import {
   getUserAccountStatu,
 } from '../service/API.js';
 // import Tools from '../service/Tools';
-import event from '../service/eventBus.js';
-import template from './step1.html';
+import template from './index.html';
 import {
   Base64,
 } from 'js-base64';
-import './step1.scss';
+import './index.scss';
 
 Vue.component(Cell.name, Cell);
 Vue.component(Field.name, Field);
@@ -162,7 +161,7 @@ export default Vue.extend({
         }).then((res) => {
           this.loading = false;
           if (res.code === 0) {
-            event.$emit('userToken', res.userInfo.userToken);
+            this.$root.this.$root.eventBusBus.$emit('userToken', res.userInfo.userToken);
             this.$router.push('info');
             return res;
           } else {
@@ -187,7 +186,7 @@ export default Vue.extend({
         }).then(res => {
           if (res.code === 0) {
             // 获取请求状态接口,跳转路由
-            event.$emit('userToken', res.userInfo.userToken);
+            this.$root.eventBus.$emit('userToken', res.userInfo.userToken);
             return res;
           } else {
             Toast(res.message);

@@ -1,35 +1,40 @@
-var config = require("./webpack.dev.js");
+var config = require('./webpack.dev.js');
 var webpack = require('webpack');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 var WebpackDevServer = require('webpack-dev-server');
 var port = 10086;
-console.log('port:', 10086);
-
+var getIPAddress = require('./getIPAddress');
 for (var item in config.entry) {
-  config.entry[item].unshift("webpack-dev-server/client?http://localhost:" + port + "/", 'webpack/hot/dev-server');
-  config.entry[item].unshift("babel-polyfill");
+  config.entry[item].unshift(
+    'webpack-dev-server/client?http://localhost:' + port + '/',
+    'webpack/hot/dev-server'
+  );
 }
-console.log('config', config.entry);
+console.log('entrys', config.entry);
 
-config.plugins.push(new OpenBrowserPlugin({
-  url: 'http://localhost:' + port
-}));
+config.plugins.push(
+  new OpenBrowserPlugin({
+    url: `http://${getIPAddress()}:${port}?debug=1`
+  })
+);
 
 var compiler = webpack(config);
-compiler.plugin('compilation', function (compilation, callbak) {
-  compilation.plugin('html-webpack-plugin-before-html-processing', function (htmlPluginData, callbak) {
-    htmlPluginData.html += 'The magic footer';
-    callbak();
-  })
-})
-console.log('config.output.path', config.output.path);
+compiler.plugin('compilation', function(compilation, callbak) {
+  // compilation.plugin('html-webpack-plugin-before-html-processing', function(
+  //   htmlPluginData,
+  //   callbak
+  // ) {
+  //   htmlPluginData.html += ``;
+  //   callbak();
+  // });
+});
 
 var server = new WebpackDevServer(compiler, {
   disableHostCheck: true,
   hot: true,
   stats: {
-    colors: true // 用颜色标识
+    colors: true
   },
   contentBase: config.output.path
 });
